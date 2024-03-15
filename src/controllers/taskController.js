@@ -18,3 +18,20 @@ export const setTask = async (req, res) => {
     },
   });
 };
+
+export const taskDelete = async (req, res) => {
+  const { id } = req.params;
+  const task = await taskModel.findByIdAndDelete({ _id: id });
+  console.log(task);
+  if (task) {
+    res.status(200).json({
+      message: 'Tarea eliminada.',
+      object: task,
+    });
+  } else {
+    res.status(404).json({
+      message: 'Tarea no encontrada.',
+      object: task,
+    });
+  }
+};
